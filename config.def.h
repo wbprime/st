@@ -7,7 +7,7 @@
  */
 static char font[] = "Inconsolata:pixelsize=19:lcdfilter=lcddefault:hintstyle=hintfull:hinting=full:antialias=true:autohint=false";
 static int borderpx = 2;
-static char shell[] = "/bin/sh";
+static char shell[] = "/bin/bash";
 static char *utmp = "utmp";
 static char stty_args[] = "stty raw -echo -iexten echonl";
 
