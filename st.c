@@ -720,6 +720,9 @@ selnormalize(void) {
 
 bool
 selected(int x, int y) {
+	if(sel.mode == SEL_EMPTY)
+		return false;
+
 	if(sel.type == SEL_RECTANGULAR)
 		return BETWEEN(y, sel.nb.y, sel.ne.y)
 		    && BETWEEN(x, sel.nb.x, sel.ne.x);
@@ -1066,6 +1069,7 @@ void
 selclear(XEvent *e) {
 	if(sel.ob.x == -1)
 		return;
+	sel.mode = SEL_IDLE;
 	sel.ob.x = -1;
 	tsetdirt(sel.nb.y, sel.ne.y);
 }
@@ -3660,7 +3664,7 @@ drawregion(int x1, int y1, int x2, int y2) {
 		term.dirty[y] = 0;
 
 		specs = term.specbuf;
-		numspecs = xmakeglyphfontspecs(specs, &term.line[y][0], x2 - x1, x1, y);
+		numspecs = xmakeglyphfontspecs(specs, &term.line[y][x1], x2 - x1, x1, y);
 
 		i = ox = 0;
 		for(x = x1; x < x2 && i < numspecs; x++) {
@@ -4007,7 +4011,7 @@ main(int argc, char *argv[]) {
 		opt_class = EARGF(usage());
 		break;
 	case 'e':
-		if(argc > 1)
+		if(argc > 0)
 			--argc, ++argv;
 		goto run;
 	case 'f':
