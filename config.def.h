@@ -8,6 +8,7 @@
 static char font[] = "Monospace:size=13:lcdfilter=lcddefault:hintstyle=hintfull:hinting=full:antialias=true:autohint=false";
 static int borderpx = 2;
 static char shell[] = "/bin/bash";
+/* git clone http://git.suckless.org/utmp */
 static char *utmp = "utmp";
 static char stty_args[] = "stty raw -echo -iexten echonl";
 
