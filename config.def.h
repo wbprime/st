@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char font[] = "Inconsolata:pixelsize=19:lcdfilter=lcddefault:hintstyle=hintfull:hinting=full:antialias=true:autohint=false";
+static char font[] = "Monospace:size=13:lcdfilter=lcddefault:hintstyle=hintfull:hinting=full:antialias=true:autohint=false";
 static int borderpx = 2;
 static char shell[] = "/bin/bash";
 static char *utmp = "utmp";
