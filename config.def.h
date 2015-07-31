@@ -7,8 +7,16 @@
  */
 static char font[] = "Monospace:size=13:lcdfilter=lcddefault:hintstyle=hintslight:hinting=true:antialias=true:autohint=false";
 static int borderpx = 2;
+
+/*
+ * What program is execed by st depends of these precedence rules:
+ * 1: program passed with -e
+ * 2: utmp option
+ * 3: SHELL environment variable
+ * 4: value of shell in /etc/passwd
+ * 5: value of shell in config.h
+ */
 static char shell[] = "/bin/bash";
-/* git clone http://git.suckless.org/utmp */
 static char *utmp = "utmp";
 static char stty_args[] = "stty raw -echo -iexten echonl";
 
@@ -31,7 +39,7 @@ static unsigned int doubleclicktimeout = 300;
 static unsigned int tripleclicktimeout = 600;
 
 /* alt screens */
-static bool allowaltscreen = true;
+static int allowaltscreen = 1;
 
 /* frames per second st should at maximum draw to the screen */
 static unsigned int xfps = 120;
@@ -95,6 +103,14 @@ static const char *colorname[] = {
 static unsigned int defaultfg = 257;
 static unsigned int defaultbg = 256;
 static unsigned int defaultcs = 14;
+
+
+/*
+ * Default colour and shape of the mouse cursor
+ */
+static unsigned int mouseshape = XC_xterm;
+static unsigned int mousefg = 7;
+static unsigned int mousebg = 0;
 
 /*
  * Colors used, when the specific fg == defaultfg. So in reverse mode this
