@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char font[] = "Monospace-13:lcdfilter=lcddefault:hintstyle=hintslight:hinting=true:antialias=true:autohint=false";
+static char font[] = "Monospace-14:lcdfilter=lcddefault:hintstyle=hintslight:hinting=true:antialias=true:autohint=false";
 static int borderpx = 2;
 
 /*
