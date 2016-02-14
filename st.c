@@ -523,14 +523,15 @@ static int cmdfd;
 static pid_t pid;
 static Selection sel;
 static int iofd = 1;
-static char **opt_cmd = NULL;
-static char *opt_io = NULL;
-static char *opt_title = NULL;
-static char *opt_embed = NULL;
+static char **opt_cmd  = NULL;
 static char *opt_class = NULL;
-static char *opt_font = NULL;
-static char *opt_line = NULL;
-static int oldbutton = 3; /* button event on startup: 3 = release */
+static char *opt_embed = NULL;
+static char *opt_font  = NULL;
+static char *opt_io    = NULL;
+static char *opt_line  = NULL;
+static char *opt_name  = NULL;
+static char *opt_title = NULL;
+static int oldbutton   = 3; /* button event on startup: 3 = release */
 
 static char *usedfont = NULL;
 static double usedfontsize = 0;
@@ -1518,8 +1519,6 @@ ttywrite(const char *s, size_t n)
 				continue;
 			die("select failed: %s\n", strerror(errno));
 		}
-		if (FD_ISSET(cmdfd, &rfd))
-			lim = ttyread();
 		if (FD_ISSET(cmdfd, &wfd)) {
 			/*
 			 * Only write the bytes written by ttywrite() or the
@@ -1543,6 +1542,8 @@ ttywrite(const char *s, size_t n)
 				break;
 			}
 		}
+		if (FD_ISSET(cmdfd, &rfd))
+			lim = ttyread();
 	}
 	return;
 
@@ -3237,7 +3238,8 @@ xclear(int x1, int y1, int x2, int y2)
 void
 xhints(void)
 {
-	XClassHint class = {opt_class ? opt_class : termname, termname};
+	XClassHint class = {opt_name ? opt_name : termname,
+	                    opt_class ? opt_class : termname};
 	XWMHints wm = {.flags = InputHint, .input = 1};
 	XSizeHints *sizeh = NULL;
 
@@ -3423,6 +3425,7 @@ xzoomabs(const Arg *arg)
 	xunloadfonts();
 	xloadfonts(usedfont, arg->f);
 	cresize(0, 0);
+	ttyresize();
 	redraw();
 	xhints();
 }
@@ -3469,7 +3472,7 @@ xinit(void)
 	if (xw.gm & XNegative)
 		xw.l += DisplayWidth(xw.dpy, xw.scr) - xw.w - 2;
 	if (xw.gm & YNegative)
-		xw.t += DisplayWidth(xw.dpy, xw.scr) - xw.h - 2;
+		xw.t += DisplayHeight(xw.dpy, xw.scr) - xw.h - 2;
 
 	/* Events */
 	xw.attrs.background_pixel = dc.col[defaultbg].pixel;
@@ -4206,7 +4209,6 @@ cresize(int width, int height)
 
 	tresize(col, row);
 	xresize(col, row);
-	ttyresize();
 }
 
 void
@@ -4216,6 +4218,7 @@ resize(XEvent *e)
 		return;
 
 	cresize(e->xconfigure.width, e->xconfigure.height);
+	ttyresize();
 }
 
 void
@@ -4244,8 +4247,9 @@ run(void)
 		}
 	} while (ev.type != MapNotify);
 
-	ttynew();
 	cresize(w, h);
+	ttynew();
+	ttyresize();
 
 	clock_gettime(CLOCK_MONOTONIC, &last);
 	lastblink = last;
@@ -4329,14 +4333,14 @@ run(void)
 void
 usage(void)
 {
-	die("%s " VERSION " (c) 2010-2015 st engineers\n"
-	"usage: st [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]\n"
-	"          [-i] [-t title] [-T title] [-w windowid] [-e command ...]"
-	" [command ...]\n"
-	"       st [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]\n"
-	"          [-i] [-t title] [-T title] [-w windowid] -l line"
-	" [stty_args ...]\n",
-	argv0);
+	die("usage: %s [-aiv] [-c class] [-f font] [-g geometry]"
+	    " [-n name] [-o file]\n"
+	    "          [-T title] [-t title] [-w windowid]"
+	    " [[-e] command [args ...]]\n"
+	    "       %s [-aiv] [-c class] [-f font] [-g geometry]"
+	    " [-n name] [-o file]\n"
+	    "          [-T title] [-t title] [-w windowid] -l line"
+	    " [stty_args ...]\n", argv0, argv0);
 }
 
 int
@@ -4375,6 +4379,9 @@ main(int argc, char *argv[])
 	case 'l':
 		opt_line = EARGF(usage());
 		break;
+	case 'n':
+		opt_name = EARGF(usage());
+		break;
 	case 't':
 	case 'T':
 		opt_title = EARGF(usage());
@@ -4383,6 +4390,8 @@ main(int argc, char *argv[])
 		opt_embed = EARGF(usage());
 		break;
 	case 'v':
+		die("%s " VERSION " (c) 2010-2016 st engineers\n", argv0);
+		break;
 	default:
 		usage();
 	} ARGEND;
