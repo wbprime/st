@@ -17,11 +17,14 @@ options:
 config.h:
 	cp config.def.h config.h
 
+theme.h:
+	cp theme_${THEME}.h theme.h
+
 .c.o:
 	@echo CC $<
 	@${CC} -c ${CFLAGS} $<
 
-${OBJ}: config.h config.mk
+${OBJ}: theme.h config.h config.mk
 
 st: ${OBJ}
 	@echo CC -o $@

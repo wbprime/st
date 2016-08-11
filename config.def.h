@@ -1,3 +1,5 @@
+#include "theme.h"
+
 /* See LICENSE file for copyright and license details. */
 
 /*
@@ -85,30 +87,38 @@ static unsigned int tabspaces = 4;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	BASE_00, /*  0: Base 00 - Black   */
+	BASE_08, /*  1: Base 08 - Red     */
+	BASE_0B, /*  2: Base 0B - Green   */
+	BASE_0A, /*  3: Base 0A - Yellow  */
+	BASE_0D, /*  4: Base 0D - Blue    */
+	BASE_0E, /*  5: Base 0E - Magenta */
+	BASE_0C, /*  6: Base 0C - Cyan    */
+	BASE_05, /*  7: Base 05 - White   */
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	BASE_03, /*  8: Base 03 - Bright Black */
+	BASE_08, /*  9: Base 08 - Red          */
+	BASE_0B, /* 10: Base 0B - Green        */
+	BASE_0A, /* 11: Base 0A - Yellow       */
+	BASE_0D, /* 12: Base 0D - Blue         */
+	BASE_0E, /* 13: Base 0E - Magenta      */
+	BASE_0C, /* 14: Base 0C - Cyan         */
+	BASE_05, /* 15: Base 05 - Bright White */
+
+	/* A few more colors */
+
+	BASE_09, /* 16: Base 09 */
+	BASE_0F, /* 17: Base 0F */
+	BASE_01, /* 18: Base 01 */
+	BASE_02, /* 19: Base 02 */
+	BASE_04, /* 20: Base 04 */
+	BASE_06, /* 21: Base 06 */
 
 	[255] = 0,
 
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
+	[256] = BASE_05, /* default fg: Base 05 */
+	[257] = BASE_00, /* default bg: Base 00 */	
 };
 
 
@@ -116,8 +126,8 @@ static const char *colorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-static unsigned int defaultfg = 7;
-static unsigned int defaultbg = 0;
+static unsigned int defaultfg = 256;
+static unsigned int defaultbg = 257;
 static unsigned int defaultcs = 256;
 static unsigned int defaultrcs = 257;
 

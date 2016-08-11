@@ -1,6 +1,8 @@
 # st version
 VERSION = 0.6
 
+THEME = tomorrow
+
 # Customize below to fit your system
 
 # paths
