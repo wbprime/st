@@ -3,7 +3,7 @@
 
 include config.mk
 
-SRC = st.c
+SRC = st.c x.c
 OBJ = ${SRC:.c=.o}
 
 all: options st
@@ -23,6 +23,9 @@ theme.h:
 .c.o:
 	@echo CC $<
 	@${CC} -c ${CFLAGS} $<
+
+st.o: config.h st.h win.h
+x.o: arg.h st.h win.h
 
 ${OBJ}: theme.h config.h config.mk
 
