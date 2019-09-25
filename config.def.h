@@ -87,38 +87,33 @@ unsigned int tabspaces = 4;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	BASE_00, /*  0: Base 00 - Black   */
-	BASE_08, /*  1: Base 08 - Red     */
-	BASE_0B, /*  2: Base 0B - Green   */
-	BASE_0A, /*  3: Base 0A - Yellow  */
-	BASE_0D, /*  4: Base 0D - Blue    */
-	BASE_0E, /*  5: Base 0E - Magenta */
-	BASE_0C, /*  6: Base 0C - Cyan    */
-	BASE_05, /*  7: Base 05 - White   */
+	BASE_BLACK  ,
+	BASE_RED    ,
+	BASE_GREEN  ,
+	BASE_YELLOW ,
+	BASE_BLUE   ,
+	BASE_MAGENTA,
+	BASE_CYAN   ,
+	BASE_WHITE  ,
 
 	/* 8 bright colors */
-	BASE_03, /*  8: Base 03 - Bright Black */
-	BASE_08, /*  9: Base 08 - Red          */
-	BASE_0B, /* 10: Base 0B - Green        */
-	BASE_0A, /* 11: Base 0A - Yellow       */
-	BASE_0D, /* 12: Base 0D - Blue         */
-	BASE_0E, /* 13: Base 0E - Magenta      */
-	BASE_0C, /* 14: Base 0C - Cyan         */
-	BASE_05, /* 15: Base 05 - Bright White */
+    BASE_BRIGHT_BLACK  ,
+    BASE_BRIGHT_RED    ,
+    BASE_BRIGHT_GREEN  ,
+    BASE_BRIGHT_YELLOW ,
+    BASE_BRIGHT_BLUE   ,
+    BASE_BRIGHT_MAGENTA,
+    BASE_BRIGHT_CYAN   ,
+    BASE_BRIGHT_WHITE  ,
 
 	/* A few more colors */
 
-	BASE_09, /* 16: Base 09 */
-	BASE_0F, /* 17: Base 0F */
-	BASE_01, /* 18: Base 01 */
-	BASE_02, /* 19: Base 02 */
-	BASE_04, /* 20: Base 04 */
-	BASE_06, /* 21: Base 06 */
-
 	[255] = 0,
 
-	[256] = BASE_05, /* default fg: Base 05 */
-	[257] = BASE_00, /* default bg: Base 00 */	
+	[256] = BASE_FOREGROUND, 
+	[257] = BASE_BACKGROUND,
+	[258] = BASE_CURSOR, 
+	[259] = BASE_RCURSOR,
 };
 
 
@@ -128,8 +123,8 @@ static const char *colorname[] = {
  */
 unsigned int defaultfg = 256;
 unsigned int defaultbg = 257;
-static unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
+static unsigned int defaultcs = 258;
+static unsigned int defaultrcs = 259;
 
 /*
  * Default shape of cursor
