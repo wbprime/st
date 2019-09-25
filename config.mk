@@ -1,7 +1,13 @@
 # st version
 VERSION = 0.8.2
 
-THEME = tomorrow
+# THEME = solarized-light
+# THEME = solarized-dark
+# THEME = github
+# THEME = google-dark
+# THEME = google-light
+# THEME = gruvbox-light
+THEME = gruvbox-dark
 
 # Customize below to fit your system
 
