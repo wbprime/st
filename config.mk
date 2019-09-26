@@ -7,7 +7,9 @@ VERSION = 0.8.2
 # THEME = google-dark
 # THEME = google-light
 # THEME = gruvbox-light
-THEME = gruvbox-dark
+# THEME = gruvbox-dark
+# THEME = one-light
+THEME = one-dark
 
 # Customize below to fit your system
 
