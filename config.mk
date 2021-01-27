@@ -6,10 +6,10 @@ VERSION = 0.8.4
 # THEME = github
 # THEME = google-dark
 # THEME = google-light
-# THEME = gruvbox-light
+THEME = gruvbox-light
 # THEME = gruvbox-dark
 # THEME = one-light
-THEME = one-dark
+# THEME = one-dark
 
 # Customize below to fit your system
 
