@@ -7,7 +7,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Monospace-13:lcdfilter=lcddefault:hintstyle=hintslight:hinting=true:antialias=true:autohint=false";
+static char *font = "Monospace:size=12:lcdfilter=lcddefault:hintstyle=hintslight:hinting=true:antialias=true:autohint=false";
 static int borderpx = 2;
 
 /*
@@ -157,8 +157,8 @@ static unsigned int rows = 24;
  * Default colour and shape of the mouse cursor
  */
 static unsigned int mouseshape = XC_xterm;
-static unsigned int mousefg = 7;
-static unsigned int mousebg = 0;
+static unsigned int mousefg = 256;
+static unsigned int mousebg = 257;
 
 /*
  * Color used to display font attributes when fontconfig selected a font which
